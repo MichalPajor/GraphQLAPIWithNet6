@@ -1,3 +1,7 @@
+using GraphQL.Data;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,6 +11,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//Build docker connection string with secrets
+var sqlConnBuilder = new SqlConnectionStringBuilder();
+sqlConnBuilder.ConnectionString = builder.Configuration.GetConnectionString("DockerConnection");
+sqlConnBuilder.UserID = builder.Configuration["UserId"];
+sqlConnBuilder.Password = builder.Configuration["Password"];
+
+//Add db context
+builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(sqlConnBuilder.ConnectionString));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
