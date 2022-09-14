@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GraphQLApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220903130753_initialmigration")]
-    partial class initialmigration
+    [Migration("20220914155322_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

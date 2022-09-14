@@ -1,4 +1,5 @@
 using GraphQL.Data;
+using GraphQLApi.GraphQL;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,6 +20,7 @@ sqlConnBuilder.Password = builder.Configuration["Password"];
 
 //Add db context
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(sqlConnBuilder.ConnectionString));
+builder.Services.AddGraphQLServer().AddQueryType<Query>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -27,9 +29,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseRouting();
+app.UseEndpoints(endpoints =>{
+    endpoints.MapGraphQL();
+});
 app.UseHttpsRedirection();
-
-app.UseAuthorization();
 
 app.Run();
