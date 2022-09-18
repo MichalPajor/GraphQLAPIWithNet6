@@ -21,7 +21,10 @@ sqlConnBuilder.Password = builder.Configuration["Password"];
 
 //Add db context
 builder.Services.AddPooledDbContextFactory<AppDbContext>(options => options.UseSqlServer(sqlConnBuilder.ConnectionString));
-builder.Services.AddGraphQLServer().AddQueryType<Query>();
+builder.Services.AddGraphQLServer()
+                .AddQueryType<Query>()
+                .AddProjections();
+                
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
