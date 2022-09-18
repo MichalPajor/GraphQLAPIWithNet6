@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using GraphQLApi.Models;
 
-namespace GraphQL.Models;
+namespace GraphQLApi.Models;
 
 public class Platform{
     [Key]

@@ -1,5 +1,5 @@
 using GraphQL.Data;
-using GraphQL.Models;
+using GraphQLApi.Models;
 
 namespace GraphQLApi.GraphQL;
 

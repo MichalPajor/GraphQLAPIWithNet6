@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-using GraphQL.Models;
+using GraphQLApi.Models;
 
 namespace GraphQLApi.Models;
 

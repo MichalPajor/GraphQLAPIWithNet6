@@ -1,12 +1,28 @@
-using GraphQL.Models;
+using GraphQLApi.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace GraphQL.Data;
- public class AppDbContext : DbContext
+public class AppDbContext : DbContext
+{
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
-        {
-            
-        }
-        public DbSet<Platform> Platforms => Set<Platform>();
+
     }
+    public DbSet<Platform> Platforms => Set<Platform>();
+    public DbSet<Command> Commands => Set<Command>();
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder
+            .Entity<Platform>()
+            .HasMany(p => p.Commands)
+            .WithOne(p => p.Platform!)
+            .HasForeignKey(p => p.PlatformId);
+        
+        modelBuilder
+            .Entity<Command>()
+            .HasOne(p=>p.Platform)
+            .WithMany(p=>p.Commands)
+            .HasForeignKey(p=>p.PlatformId);
+    }
+}
