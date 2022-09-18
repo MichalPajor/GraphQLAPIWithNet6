@@ -20,7 +20,7 @@ sqlConnBuilder.UserID = builder.Configuration["UserId"];
 sqlConnBuilder.Password = builder.Configuration["Password"];
 
 //Add db context
-builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(sqlConnBuilder.ConnectionString));
+builder.Services.AddPooledDbContextFactory<AppDbContext>(options => options.UseSqlServer(sqlConnBuilder.ConnectionString));
 builder.Services.AddGraphQLServer().AddQueryType<Query>();
 var app = builder.Build();
 
