@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using GraphQLApi.Models;
 
 namespace GraphQL.Models;
 
@@ -8,5 +9,5 @@ public class Platform{
     [Required]
     public string  Name { get; set; } = null!;
     public string LicenseKey { get; set; } = null!;
-
+    public ICollection<Command> Commands {get; set;} = new List<Command>();
 }
