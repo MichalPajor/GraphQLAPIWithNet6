@@ -1,6 +1,8 @@
 using GraphQL.Data;
 using GraphQL.Server.Ui.Voyager;
 using GraphQLApi.GraphQL;
+using GraphQLApi.GraphQL.Commands;
+using GraphQLApi.GraphQL.Platforms;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,7 +25,10 @@ sqlConnBuilder.Password = builder.Configuration["Password"];
 builder.Services.AddPooledDbContextFactory<AppDbContext>(options => options.UseSqlServer(sqlConnBuilder.ConnectionString));
 builder.Services.AddGraphQLServer()
                 .AddQueryType<Query>()
-                .AddProjections();
+                .AddType<PlatformType>()
+                .AddType<CommandType>()
+                .AddFiltering()
+                .AddSorting();
                 
 var app = builder.Build();
 
