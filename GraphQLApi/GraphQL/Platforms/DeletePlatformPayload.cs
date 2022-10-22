@@ -2,4 +2,4 @@ using GraphQLApi.Models;
 
 namespace GraphQLApi.GraphQL.Platforms;
 
-public record AddPlatformPayload(Platform platform);
+public record DeletePlatformPayload(Platform? platform);
